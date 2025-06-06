@@ -329,7 +329,7 @@ class DatabricksJobsDeployment:
     def _deploy_add_job(self, job_id, job_data, step_id):
         job_data = self._update_databricks_json_for_artifactory(job_data)
         if  self.use_existing_cluster:
-            patch_job_json_for_existing_cluster(job_data.databricks_job_json, cluster_id=self.use_existing_cluster)
+            job_data = patch_job_json_for_existing_cluster(job_data.databricks_job_json, cluster_id=self.use_existing_cluster)
         fabric_id = job_data.fabric_id
         fabric_config = self.project_config.fabric_config.get_fabric(fabric_id)
         fabric_name = fabric_config.name if fabric_config is not None else None
@@ -430,7 +430,7 @@ class DatabricksJobsDeployment:
             client = self.get_databricks_client(fabric_id)
             job_data = self.valid_databricks_jobs.get(job_id)
             if self.use_existing_cluster:
-                patch_job_json_for_existing_cluster(job_data.databricks_job_json, cluster_id=self.use_existing_cluster)
+                job_data = patch_job_json_for_existing_cluster(job_data.databricks_job_json, cluster_id=self.use_existing_cluster)
             client.reset_job(job_info.external_job_id, job_data.databricks_json)
 
             if job_data.acl:
