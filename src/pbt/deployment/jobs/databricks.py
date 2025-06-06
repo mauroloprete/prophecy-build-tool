@@ -45,6 +45,7 @@ def patch_job_json_for_existing_cluster(job_json: dict, cluster_id: Optional[str
                 if "job_cluster_key" in task:
                     del task["job_cluster_key"]
                 task["existing_cluster_id"] = cluster_id
+    print(job_json)
     
     
 
